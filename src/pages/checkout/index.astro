@@ -1,9 +1,9 @@
 ---
-import BaseHead from '../../components/BaseHead.astro';
-import Footer from '../../components/Footer.astro';
-import Header from '../../components/Header.astro';
-import { SITE_DESCRIPTION, SITE_TITLE } from '../../consts';
-import { getCart, getCartTotal } from '../../lib/cart-utils';
+import BaseHead from '$/components/BaseHead.astro';
+import Footer from '$/components/Footer.astro';
+import Header from '$/components/Header.astro';
+import { SITE_DESCRIPTION, SITE_TITLE } from '$/consts';
+import { getCart, getCartTotal } from '$lib/cart-utils';
 
 const cartItems = getCart();
 const total = getCartTotal();
