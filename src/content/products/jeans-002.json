@@ -1,0 +1,15 @@
+{
+  "id": "jeans-002",
+  "title": "修身牛仔裤",
+  "description": "时尚修身版型的牛仔裤，舒适耐穿。",
+  "price": 299.00,
+  "category": "下装",
+  "sizes": ["32", "34", "36", "38"],
+  "colors": ["深蓝色", "浅蓝色", "黑色"],
+  "images": [
+    "/assets/jeans-front.png",
+    "/assets/jeans-side.png"
+  ],
+  "inStock": true,
+  "tags": ["热销"]
+}

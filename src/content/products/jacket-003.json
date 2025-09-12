@@ -1,0 +1,15 @@
+{
+  "id": "jacket-003",
+  "title": "休闲夹克",
+  "description": "轻便保暖的休闲夹克，适合春秋季节穿着。",
+  "price": 599.00,
+  "category": "外套",
+  "sizes": ["S", "M", "L", "XL"],
+  "colors": ["卡其色", "军绿色", "藏青色"],
+  "images": [
+    "/assets/jacket-front.png",
+    "/assets/jacket-back.png"
+  ],
+  "inStock": false,
+  "tags": ["新品"]
+}
