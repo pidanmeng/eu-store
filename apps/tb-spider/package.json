@@ -1,0 +1,20 @@
+{
+  "name": "@eu-store/tb-spider",
+  "module": "index.ts",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "start": "bun run index.ts"
+  },
+  "devDependencies": {
+    "@types/bun": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5"
+  },
+  "dependencies": {
+    "@types/fs-extra": "^11.0.4",
+    "fs-extra": "^11.3.1",
+    "puppeteer": "^24.20.0"
+  }
+}

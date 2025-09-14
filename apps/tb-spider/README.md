@@ -1,4 +1,4 @@
-# eu-store
+# tb-spider
 
 To install dependencies:
 
