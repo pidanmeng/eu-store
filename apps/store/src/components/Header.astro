@@ -1,16 +1,16 @@
 ---
-import { SITE_TITLE } from '../consts';
-import { ShoppingCart, User } from '@lucide/svelte';
+import { User } from '@lucide/svelte';
 import NavigationMenu from './NavigationMenu.svelte';
 import { getCollection } from 'astro:content';
 import Logo from './Logo.astro';
+import CartButton from './CartButton.svelte';
 
 const categories = await getCollection('category');
 const posts = await getCollection('post');
 ---
 
 <div class="h-16"></div>
-<header class="bg-background shadow-sm h-16 fixed top-0 left-0 right-0 z-999">
+<header class="bg-background shadow-sm h-16 fixed top-0 left-0 right-0 z-10">
   <nav class="container mx-auto px-4 py-4 flex items-center justify-between">
     <!-- Logo on the left -->
     <div class="md:flex items-center hidden">
@@ -24,14 +24,9 @@ const posts = await getCollection('post');
     </div>
 
     <!-- Icons on the right -->
-    <div class="flex items-center space-x-4">
+    <div class="flex items-center gap-4">
       <!-- Shopping cart icon -->
-      <button
-        class="text-foreground hover:opacity-80 focus:outline-none"
-        aria-label="Shopping cart"
-      >
-        <ShoppingCart class="h-6 w-6" />
-      </button>
+      <CartButton client:load />
 
       <!-- Login icon -->
       <button

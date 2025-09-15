@@ -1,20 +1,72 @@
 ---
 import { type CollectionEntry, getCollection, render } from 'astro:content';
-import BlogPost from '../../layouts/BlogPost.astro';
+import { Image } from 'astro:assets';
+import DefaultLayout from '$/layouts/Default.astro';
+import AddToCart from '$/components/AddToCart.svelte';
 
 export async function getStaticPaths() {
-	const posts = await getCollection('product');
-	return posts.map((post) => ({
-		params: { slug: post.id },
-		props: post,
-	}));
+  const products = await getCollection('product');
+  return products.map((product) => ({
+    params: { slug: product.id },
+    props: product,
+  }));
 }
+
 type Props = CollectionEntry<'product'>;
 
-const post = Astro.props;
-const { Content } = await render(post);
+const product = Astro.props;
 ---
 
-<BlogPost {...post.data}>
-	<Content />
-</BlogPost>
+<DefaultLayout>
+  <div class="container mx-auto px-4 py-8">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+      <!-- Product Image -->
+      <div>
+        {
+          product.data.image && (
+            <div class="rounded-lg overflow-hidden border border-border md:max-h-96 max-h-64">
+              <Image
+                src={product.data.image}
+                alt={product.data.title}
+                class="w-full h-auto object-cover"
+                width={600}
+                height={600}
+              />
+            </div>
+          )
+        }
+      </div>
+
+      <!-- Product Details -->
+      <div>
+        <h1 class="md:text-3xl font-bold text-foreground mb-4">
+          {product.data.title}
+        </h1>
+
+        <div class="mb-6">
+          <span class="md:text-2xl font-bold text-foreground"
+            >${product.data.price}</span
+          >
+          {
+            product.data.rating && (
+              <div class="flex items-center mt-2">
+                <span class="text-muted-foreground mr-2">Rating:</span>
+                <span class="font-medium">
+                  {product.data.rating.toFixed(1)}
+                </span>
+              </div>
+            )
+          }
+        </div>
+
+        <p class="text-muted-foreground mb-6">{product.data.description}</p>
+
+        <!-- Add to Cart Component -->
+        <AddToCart
+          client:load
+          product={product}
+        />
+      </div>
+    </div>
+  </div>
+</DefaultLayout>

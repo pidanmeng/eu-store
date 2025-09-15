@@ -5,10 +5,13 @@ import type { CollectionEntry } from 'astro:content';
 import BaseHead from '../components/BaseHead.astro';
 import Footer from '../components/Footer.astro';
 import Header from '../components/Header.astro';
+import { cn } from '$lib/utils';
 
-type Props = Partial<CollectionEntry<'product'>['data']>;
+type Props = Partial<CollectionEntry<'product'>['data']> & {
+  prose?: boolean;
+};
 
-const { title = '', description = '', image } = Astro.props;
+const { title = '', description = '', image, prose = false } = Astro.props;
 ---
 
 <html lang="en">
@@ -55,10 +58,10 @@ const { title = '', description = '', image } = Astro.props;
     </style>
   </head>
 
-  <body class="min-h-screen flex flex-col">
+  <body class="min-h-screen flex flex-col items-center">
     <Header />
     <main class="flex-grow">
-      <article>
+      <article class={cn('w-full', { prose })}>
         <div class="hero-image">
           {image && <Image width={1020} height={510} src={image} alt="" />}
         </div>
