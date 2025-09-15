@@ -1,34 +1,43 @@
 ---
 import { SITE_TITLE } from '../consts';
-import HeaderLink from './HeaderLink.astro';
 import { ShoppingCart, User } from '@lucide/svelte';
+import NavigationMenu from './NavigationMenu.svelte';
+import { getCollection } from 'astro:content';
+import Logo from './Logo.astro';
+
+const categories = await getCollection('category');
+const posts = await getCollection('post');
 ---
 
-<header class="bg-background shadow-sm">
+<div class="h-16"></div>
+<header class="bg-background shadow-sm h-16 fixed top-0 left-0 right-0 z-999">
   <nav class="container mx-auto px-4 py-4 flex items-center justify-between">
     <!-- Logo on the left -->
-    <div class="flex items-center">
-      <a href="/" class="text-xl font-bold text-foreground hover:opacity-80 transition-opacity">
-        {SITE_TITLE}
-      </a>
+    <div class="md:flex items-center hidden">
+      <Logo />
     </div>
 
-    <!-- Navigation links in the center (hidden on mobile) -->
-    <div class="hidden md:flex items-center space-x-1">
-      <HeaderLink href="/" class="px-3 py-2 rounded-md text-sm font-medium hover:bg-muted">Home</HeaderLink>
-      <HeaderLink href="/product" class="px-3 py-2 rounded-md text-sm font-medium hover:bg-muted">Product</HeaderLink>
-      <HeaderLink href="/about" class="px-3 py-2 rounded-md text-sm font-medium hover:bg-muted">About</HeaderLink>
+    <NavigationMenu {categories} {posts} client:load />
+
+    <div class="flex items-center md:hidden">
+      <Logo />
     </div>
 
     <!-- Icons on the right -->
     <div class="flex items-center space-x-4">
       <!-- Shopping cart icon -->
-      <button class="text-foreground hover:opacity-80 focus:outline-none" aria-label="Shopping cart">
+      <button
+        class="text-foreground hover:opacity-80 focus:outline-none"
+        aria-label="Shopping cart"
+      >
         <ShoppingCart class="h-6 w-6" />
       </button>
-      
+
       <!-- Login icon -->
-      <button class="text-foreground hover:opacity-80 focus:outline-none" aria-label="Login">
+      <button
+        class="text-foreground hover:opacity-80 focus:outline-none"
+        aria-label="Login"
+      >
         <User class="h-6 w-6" />
       </button>
     </div>

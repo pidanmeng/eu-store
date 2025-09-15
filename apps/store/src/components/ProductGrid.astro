@@ -1,0 +1,24 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import ProductCard from './ProductCard.astro';
+
+interface Props {
+  products: CollectionEntry<'product'>[];
+  title?: string;
+}
+
+const { products, title = 'Products' } = Astro.props as Props;
+---
+
+<section class="mt-12">
+  <h2 class="text-2xl font-bold mb-6 text-foreground">{title}</h2>
+  <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
+    {
+      products.map((product) => (
+        <div class="w-full">
+          <ProductCard {product} />
+        </div>
+      ))
+    }
+  </div>
+</section>

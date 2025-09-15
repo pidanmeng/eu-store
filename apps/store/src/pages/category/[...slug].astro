@@ -1,0 +1,56 @@
+---
+import { getCollection } from 'astro:content';
+import DefaultLayout from '$/layouts/Default.astro';
+import ProductGrid from '$/components/ProductGrid.astro';
+
+export async function getStaticPaths() {
+  const categories = await getCollection('category');
+  return categories.map((category) => ({
+    params: { slug: category.id },
+  }));
+}
+
+// 获取所有分类和产品
+const categories = await getCollection('category');
+const products = await getCollection('product');
+
+// 获取当前分类的 slug
+const { slug } = Astro.params;
+
+// 查找匹配的分类
+const category = categories.find((cat) => cat.id === slug);
+
+// 如果分类不存在，返回 404
+if (!category) {
+  throw new Response(null, { status: 404 });
+}
+
+// 根据分类过滤产品
+const filteredProducts = products.filter((product) => {
+  return product.data.categories?.some((cat) => cat.id === slug);
+});
+---
+
+<DefaultLayout
+  description={category.data.description ||
+    `Products in ${category.data.title}`}
+>
+  <div class="container mx-auto px-4 py-8">
+    <h1 class="text-3xl font-bold mb-2 text-foreground">
+      {category.data.title}
+    </h1>
+    {
+      category.data.description && (
+        <p class="text-muted-foreground mb-8">{category.data.description}</p>
+      )
+    }
+
+    {
+      filteredProducts.length > 0 ? (
+        <ProductGrid products={filteredProducts} title={`Products in ${category.data.title}`} />
+      ) : (
+        <p class="text-muted-foreground">No products found in this category.</p>
+      )
+    }
+  </div>
+</DefaultLayout>

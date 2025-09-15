@@ -64,7 +64,7 @@ async function main() {
   console.log(`数据将保存到: ${baseDir}`)
 
   // 构建搜索URL
-  const searchUrl = `https://www.amazon.com/s?k=${encodeURIComponent(searchQuery)}&language=en-US`
+  const searchUrl = `https://www.amazon.com/s?k=${encodeURIComponent(searchQuery)}&language=en-US&ref=cs_503_search`
 
   // 启动浏览器
   const browser = await puppeteer.launch({

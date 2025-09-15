@@ -1,0 +1,51 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { Button } from '$lib/components/ui/button';
+import { Image } from 'astro:assets';
+
+interface Props {
+  category: CollectionEntry<'category'>;
+}
+
+const { category } = Astro.props as Props;
+---
+
+<div
+  class="flex flex-row rounded-lg transition-all overflow-hidden gap-2 md:gap-8 max-h-60 h-full"
+>
+  {
+    category.data.cover && (
+      <div class="md:aspect-auto overflow-hidden flex-1 flex items-center justify-end">
+        <a href={`/category/${category.id}`} class="inline-block h-full w-full">
+          <Image
+            src={category.data.cover}
+            alt={category.data.title}
+            class="h-full w-full object-contain object-center"
+            width={400}
+            height={300}
+          />
+        </a>
+      </div>
+    )
+  }
+  <div class="flex-1 flex flex-col justify-between py-2">
+    <div>
+      <h3 class="text-xl font-semibold leading-tight text-foreground">
+        {category.data.title}
+      </h3>
+      {
+        category.data.description && (
+          <p class="mt-2 text-muted-foreground">{category.data.description}</p>
+        )
+      }
+    </div>
+    <div class="mt-4">
+      <Button
+        href={`/category/${category.id}`}
+        class="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none ring-offset-background bg-primary text-primary-foreground hover:bg-primary/90 h-10 py-2 px-4"
+      >
+        Read More
+      </Button>
+    </div>
+  </div>
+</div>

@@ -55,28 +55,30 @@ const { title = '', description = '', image } = Astro.props;
     </style>
   </head>
 
-  <body>
+  <body class="min-h-screen flex flex-col">
     <Header />
-    <main>
+    <main class="flex-grow">
       <article>
         <div class="hero-image">
           {image && <Image width={1020} height={510} src={image} alt="" />}
         </div>
-        <div class="prose">
-          <div class="title">
-            <div class="date">
-              <!-- <FormattedDate date={pubDate} /> -->
-              <!-- {
-								updatedDate && (
-									<div class="last-updated-on">
-										Last updated on <FormattedDate date={updatedDate} />
-									</div>
-								)
-							} -->
-            </div>
-            <h1>{title}</h1>
-            <hr />
-          </div>
+        <div class="container mx-auto">
+          {
+            title && (<div class="title">
+              <div class="date">
+                <!-- <FormattedDate date={pubDate} /> -->
+                <!-- {
+                  updatedDate && (
+                    <div class="last-updated-on">
+                      Last updated on <FormattedDate date={updatedDate} />
+                    </div>
+                  )
+                } -->
+              </div>
+              <h1>{title}</h1>
+              <hr />
+            </div>)
+          }
           <slot />
         </div>
       </article>

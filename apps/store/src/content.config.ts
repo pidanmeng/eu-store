@@ -1,4 +1,4 @@
-import { defineCollection, z } from 'astro:content';
+import { defineCollection, z, reference } from 'astro:content';
 import { glob } from 'astro/loaders';
 import path from 'path';
 import { PRODUCT_SLUG } from './consts';
@@ -7,7 +7,6 @@ const __dirname = path.resolve();
 const baseUrl = path.join(__dirname, '../tb-spider/content');
 
 const product = defineCollection({
-  // Load Markdown and MDX files in the `src/content/blog/` directory.
   loader: glob({ base: path.join(baseUrl, PRODUCT_SLUG, 'products'), pattern: '*.json' }),
   // Type-check frontmatter using a schema
   schema: ({ image }) =>
@@ -18,7 +17,26 @@ const product = defineCollection({
       rating: z.number(),
       price: z.number(),
       image: image().optional(),
+      categories: z.array(reference('category')).optional(),
     }),
 });
 
-export const collections = { product };
+const post = defineCollection({
+  loader: glob({ base: path.join(baseUrl, PRODUCT_SLUG, 'posts'), pattern: '*.md' }),
+  schema: () =>
+    z.object({
+      title: z.string(),
+      slug: z.string(),
+    }),
+});
+
+const category = defineCollection({
+  loader: glob({ base: path.join(baseUrl, PRODUCT_SLUG, 'categories'), pattern: '*.json' }),
+  schema: ({ image }) => z.object({
+    title: z.string(),
+    description: z.string().optional(),
+    cover: image().optional(),
+  }),
+});
+
+export const collections = { product, post, category };
