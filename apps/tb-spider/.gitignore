@@ -5,8 +5,6 @@ node_modules
 out
 dist
 *.tgz
-content
-assets
 
 # code coverage
 coverage
